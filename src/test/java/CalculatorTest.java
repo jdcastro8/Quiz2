@@ -2,6 +2,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CalculatorTest {
 
@@ -36,6 +38,18 @@ public class CalculatorTest {
         assertThrows(ArithmeticException.class, () -> {
             calculator.divide(10, 0);
         });
+    }
+
+    @Test
+    public void testIsEven() {
+        Calculator calculator = new Calculator();
+        assertTrue(calculator.isEven(8));
+    }
+
+    @Test
+    public void testIsOdd() {
+        Calculator calculator = new Calculator();
+        assertFalse(calculator.isEven(7));
     }
 
 }
