@@ -4,4 +4,8 @@ public class Calculator {
         return x + y;
     }
 
+    public int subtract(int x, int y) {
+        return 0;
+    }
+
 }
