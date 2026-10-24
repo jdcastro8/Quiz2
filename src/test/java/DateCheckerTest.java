@@ -2,17 +2,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DateCheckerTest {
 
     @Test
     public void testJanuaryHas31Days() {
         DateChecker checker = new DateChecker();
-        assertTrue(checker.has31Days(Month.JANUARY));
+        assertTrue(checker.has31Days(Month.JANUARY),
+                "January should have 31 days");
     }
 
     @ParameterizedTest
@@ -27,7 +28,8 @@ public class DateCheckerTest {
     })
     public void testMonthsWith31Days(Month month) {
         DateChecker checker = new DateChecker();
-        assertTrue(checker.has31Days(month));
+        assertTrue(checker.has31Days(month),
+                month + " should have 31 days");
     }
 
     @ParameterizedTest
@@ -39,21 +41,26 @@ public class DateCheckerTest {
     })
     public void testMonthsWith30Days(Month month) {
         DateChecker checker = new DateChecker();
-        assertFalse(checker.has31Days(month));
+        assertFalse(checker.has31Days(month),
+                month + " should not have 31 days");
     }
+
     @Test
     public void testFebruaryDoesNotHave31Days() {
         DateChecker checker = new DateChecker();
-        assertFalse(checker.has31Days(Month.FEBRUARY));
+        assertFalse(checker.has31Days(Month.FEBRUARY),
+                "February should not have 31 days");
     }
+
     @Test
     public void testNullMonthThrowsException() {
         DateChecker checker = new DateChecker();
 
         assertThrows(IllegalArgumentException.class, () -> {
             checker.has31Days(null);
-        });
+        }, "A null month should throw an IllegalArgumentException");
     }
+
     @ParameterizedTest
     @EnumSource(Month.class)
     public void testAllMonths(Month month) {
@@ -64,7 +71,8 @@ public class DateCheckerTest {
             case FEBRUARY, APRIL, JUNE, SEPTEMBER, NOVEMBER -> false;
         };
 
-        assertEquals(expected, checker.has31Days(month));
+        assertEquals(expected, checker.has31Days(month),
+                "Incorrect result for " + month);
     }
 
 }
