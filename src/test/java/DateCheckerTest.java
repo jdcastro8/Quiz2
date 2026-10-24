@@ -4,6 +4,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DateCheckerTest {
 
@@ -43,6 +44,14 @@ public class DateCheckerTest {
     public void testFebruaryDoesNotHave31Days() {
         DateChecker checker = new DateChecker();
         assertFalse(checker.has31Days(Month.FEBRUARY));
+    }
+    @Test
+    public void testNullMonthThrowsException() {
+        DateChecker checker = new DateChecker();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            checker.has31Days(null);
+        });
     }
 
 }
